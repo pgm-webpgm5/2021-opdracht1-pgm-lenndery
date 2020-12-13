@@ -3,9 +3,9 @@ import { Text, StyleSheet } from 'react-native';
 
 import { rem } from '../../utils'
 
-function H4 ({ children }) {
+function H4 ({ children, style }) {
     return (
-        <Text style={styles.font}>{ children }</Text>
+        <Text style={ [styles.font, style] }>{ children }</Text>
     );
 }
 

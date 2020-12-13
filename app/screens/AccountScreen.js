@@ -12,8 +12,8 @@ function AccountScreen(props) {
         <Screen>
             <Wrapper>
                 <Image style={ styles.logo } source={require('../assets/logo_postbox_alt.png')} />
-                <Label>Signed in as</Label>
-                <H4 style={ styles.userEmail }>{ login.email }</H4>
+                <Label style={ styles.center }>Signed in as</Label>
+                <H4 style={ [styles.userEmail, styles.center] }>{ login.email }</H4>
                 <TouchableOpacity style={ styles.button }>
                     <Text style={ styles.buttonLabel }>Configure account</Text>
                 </TouchableOpacity>
@@ -32,7 +32,14 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: 250,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        alignSelf: 'center'
+    },
+    userEmail: {
+        marginBottom: rem(2)
+    },
+    center: {
+        textAlign: "center"
     },
     button: {
         marginTop: rem(1),
