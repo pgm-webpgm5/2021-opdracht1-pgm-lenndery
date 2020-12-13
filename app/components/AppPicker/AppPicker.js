@@ -13,36 +13,35 @@ function Pick({ placeholder, icon, items, onSelectItem, ...otherProps}) {
     return (
         <>
             <TouchableWithoutFeedback onPress={() => setModalVisable(!modalVisable)}>
-                <View style={ styles.wrapper }>
+                <View style={ styles.container }>
                     { icon && <MaterialCommunityIcons style={styles.icon} name={icon} size={24} color="black" />}
                     <Text style={ styles.text }>{ selectedItem ? selectedItem.label : placeholder }</Text>
                     <MaterialCommunityIcons style={styles.icon} name="chevron-down" size={24} color="black" />
                 </View>
             </TouchableWithoutFeedback>
             <Modal visible={modalVisable} animationType="slide">
-                <Screen> 
+                <Wrapper style={ styles.wrapper }>
                     <Button title="Close" onPress={() => setModalVisable(!modalVisable)}/>
-                    <Wrapper>
-                        <FlatList 
-                            data={items}
-                            keyExtractor={({ value }) => value}
-                            renderItem={({ item }) => 
-                                <AppPickeritem label={ item.label } onPress={() => {
-                                    setModalVisable(!modalVisable);
-                                    if (onSelectItem) onSelectItem(item);
-                                    setSelectedItem(item)
-                                }}/>
-                            }
-                        />
-                    </Wrapper>
-                </Screen>
+                    <FlatList 
+                        style={ styles.list }
+                        data={items}
+                        keyExtractor={({ key }) => key}
+                        renderItem={({ item }) => 
+                            <AppPickeritem label={ item.label } onPress={() => {
+                                setModalVisable(!modalVisable);
+                                if (onSelectItem) onSelectItem(item);
+                                setSelectedItem(item)
+                            }}/>
+                        }
+                    />
+                </Wrapper>
             </Modal>
         </>
     );
 }
 
 const styles = StyleSheet.create({
-    wrapper: {
+    container: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -50,6 +49,11 @@ const styles = StyleSheet.create({
         padding: rem(.8),
         paddingHorizontal: rem(1.4),
         marginBottom: rem(1)
+    },
+    wrapper: {
+        display: "flex",
+        justifyContent: "flex-end",
+        height: '100%',
     },
     text: {
         flex: 1,
@@ -59,6 +63,9 @@ const styles = StyleSheet.create({
     icon: {
         marginRight: rem(1.2),
         color: '#948461'
+    },
+    list: {
+        marginTop: rem(1)
     }
 })
 

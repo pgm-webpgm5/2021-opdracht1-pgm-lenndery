@@ -7,8 +7,6 @@ import { messageRecievedDate, rem } from '../utils';
 
 function MessageDetailScreen({ route }) {
     const { meta: { sender, date }, message: { title, body }} = mailData.find(m => m.meta.id === route.params.id )
-    console.log(date);
-    
     const recievedDate = messageRecievedDate()
     
     return (

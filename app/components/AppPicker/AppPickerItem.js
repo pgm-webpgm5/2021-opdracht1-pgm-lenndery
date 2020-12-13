@@ -1,14 +1,25 @@
 import React from 'react';
-import { View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native';
+import { rem } from '../../utils';
 
-function PickItem({ label, onPress }) {
+function AppPickItem({ label, onPress }) {
+    console.log(label)
     return (
         <TouchableOpacity onPress={onPress}>
-            <View>
+            <View style={ styles.item }>
                 <Text>{ label }</Text>
             </View>
         </TouchableOpacity>
     );
 }
 
-export default PickItem;
+const styles = StyleSheet.create({
+    item: {
+        backgroundColor: 'lightgrey',
+        padding: rem(1),
+        borderRadius: 10,
+        marginBottom: rem(1)
+    }
+})
+
+export default AppPickItem;

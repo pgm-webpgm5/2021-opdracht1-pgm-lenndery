@@ -1,14 +1,13 @@
 import React from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
+import { rem } from '../../utils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-import { rem } from '../utils';
 
 function Input({ icon, ...otherProps }) {
     return (
-        <View style={[styles.wrapper, otherProps.multiline && styles.areaWrapper]}>
+        <View style={styles.wrapper}>
             { icon && <MaterialCommunityIcons style={styles.icon} name={icon} size={24} color="black" />}
-            <TextInput style={[styles.input, otherProps.multiline && styles.area]} { ...otherProps } placeholderTextColor="#94846150"/>
+            <TextInput style={styles.input} { ...otherProps } placeholderTextColor="#94846150"/>
         </View>
     );
 }
@@ -31,13 +30,6 @@ const styles = StyleSheet.create({
         color: '#948461',
         fontSize: rem(1.4),
         flex: 1
-    },
-    areaWrapper: {
-        alignItems: "flex-start",
-    },
-    area: {
-        minHeight: 300,
-        textAlignVertical: "top"
     }
 })
 

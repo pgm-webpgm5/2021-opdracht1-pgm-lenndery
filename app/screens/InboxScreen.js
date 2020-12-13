@@ -7,10 +7,13 @@ import { H2, Screen, MailPreviewCard, Wrapper, Label, AppInput, IconButton, AppP
 import mailData from '../data/mailData';
 import { rem } from '../utils';
 
-console.log('log')
+const sortingMethods = [
+    {label: 'Default' , action: '', key: 1},
+    {label: 'Ascending' , action: 'a - b', key: 2},
+    {label: 'Descending' , action: 'b - a', key: 3}
+]
 
 function InboxScreen({ navigation }) {
-    console.log({ navigation })
     const [ mails, setMails ] = useState(mailData);
     const [ refreshing, setRefreshing ] = useState(false);
     const [ sortVisible, setSortVisible ] = useState(false);
@@ -37,6 +40,12 @@ function InboxScreen({ navigation }) {
         }
     }
     
+    const handleSorting = method => {
+        if (method.key === 1) setSortVisible(!sortVisible);
+        const sorted = mails.sort((a, b) => eval(method.action))
+        setMails(sorted)
+    }
+    
     return (
         <Screen style={{ height: 10000, position: "relative" }}>
             <Wrapper style={ styles.screenHero }>
@@ -48,15 +57,18 @@ function InboxScreen({ navigation }) {
                     <IconButton title="Search" icon="search" inGroup onPress={() => setSearchVisible(!searchVisible) }/>
                     <IconButton title="Sort" icon="filter-list" onPress={() => setSortVisible(!sortVisible)}/>
                 </View>
-                <IconButton title="New mail" icon="add-circle-outline"/>
+                <IconButton 
+                    title="New mail" 
+                    icon="add-circle-outline" 
+                    onPress={() => navigation.navigate('CreateMail')} />
             </Wrapper>
-            <View style={ !searchVisible && styles.searchInvisible}>
+            <View style={ !searchVisible && styles.collapseInvisible}>
                 <AppInput placeholder="Search" onChangeText={(text) => {
-                handleSearch(text)
+                    handleSearch(text)
                 }} />
             </View>
-            <View>
-                <AppPicker />
+            <View style={ !sortVisible && styles.collapseInvisible}>
+                <AppPicker items={ sortingMethods } onSelectItem={item => handleSorting(item) }/>
             </View>
             <FlatList 
                 style={ styles.messagesList }
@@ -121,7 +133,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between"
     },
-    searchInvisible: {
+    collapseInvisible: {
         display: 'none'
     },
     filterModalWrapper: {

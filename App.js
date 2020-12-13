@@ -6,8 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { WelcomeScreen, InboxScreen, MessageDetailScreen } from './app/screens';
-import { Screen, TabBar } from './app/components';
+import { WelcomeScreen, InboxScreen, MessageDetailScreen, LoginScreen, ComposeScreen } from './app/screens';
+import { LoggedInCheck, Screen, TabBar } from './app/components';
+import { AuthContext } from './app/contexts/AuthContext';
 
 const Link = ({ title, to }) => {
     const navigation = useNavigation();
@@ -20,27 +21,15 @@ const Link = ({ title, to }) => {
     )
 }
 
-// const Messages = ({ navigation }) => (
-//     <Screen>
-//         <Link />
-//         <Text>Messages</Text>
-//     </Screen>
-// )
-
-const MessageDetail = ({ route }) => (
-    <Screen>
-        <Text>Message Detail: { route.params.id }</Text>
-    </Screen>
-)
-
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Inbox" component={InboxScreen} options={{
             headerShown: false
         }}/>
         <Stack.Screen name="MailDetails" component={MessageDetailScreen}/>
+        <Stack.Screen name="CreateMail" component={ComposeScreen}/>
     </Stack.Navigator>
 )
 
@@ -71,6 +60,7 @@ const TabNavigator = () => (
 
 export default function App() {
     const [ isLoading, setIsLoading ] = useState(true)
+    const [ login, setLogin ] = useState(false)
     
     const appLoading = () => {
         setTimeout(() => {
@@ -84,11 +74,14 @@ export default function App() {
     
     return (
         <>
-            { isLoading ? <WelcomeScreen/> : 
-                <NavigationContainer>
-                    <TabNavigator/>
-                </NavigationContainer>
-            }
+            <AuthContext.Provider value={ [login, setLogin] }>
+                { isLoading ? <WelcomeScreen/> : 
+                    <LoggedInCheck 
+                        is={ <NavigationContainer><TabNavigator/></NavigationContainer> }
+                        isNot={ <LoginScreen /> }
+                    />
+                }
+            </AuthContext.Provider>
         </>
     );
 }
