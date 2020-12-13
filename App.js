@@ -65,7 +65,7 @@ export default function App() {
     const appLoading = () => {
         setTimeout(() => {
             setIsLoading(false)
-        }, 3000)
+        }, 10000)
     }
     
     useEffect(() => {

@@ -28,7 +28,6 @@ function ComposeScreen({ navigation, route }) {
                         autoCorrect={false}
                         keyboardType="email-address"
                         placeholder="Sender"
-                        value={ sender || ''}
                         textContextType="emailAddress"
                     />
                     <FormField 
@@ -38,7 +37,6 @@ function ComposeScreen({ navigation, route }) {
                         autoCorrect={false}
                         keyboardType="email-address"
                         placeholder="Reciever"
-                        value={ reciever || ''}
                         textContextType="emailAddress"
                     />
                     <FormField 
@@ -48,14 +46,12 @@ function ComposeScreen({ navigation, route }) {
                         autoCorrect={false}
                         keyboardType="email-address"
                         placeholder="CC"
-                        value={ cc || ''}
                         textContextType="emailAddress"
                     />
                     <FormField 
                         name="subject"
                         icon="text-subject"
                         placeholder="Subject"
-                        value={ subject || ''}
                     />
                     <FormField 
                         name="message"
