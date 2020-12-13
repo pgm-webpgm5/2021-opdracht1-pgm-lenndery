@@ -1,10 +1,11 @@
 import React from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useFormikContext } from 'formik'
 
 import { rem } from '../utils';
 
-function Input({ icon, ...otherProps }) {
+function Input({ icon, ...otherProps }) {    
     return (
         <View style={[styles.wrapper, otherProps.multiline && styles.areaWrapper]}>
             { icon && <MaterialCommunityIcons style={styles.icon} name={icon} size={24} color="black" />}

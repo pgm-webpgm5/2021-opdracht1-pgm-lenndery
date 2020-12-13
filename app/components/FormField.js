@@ -4,7 +4,6 @@ import { useFormikContext } from 'formik';
 import { AppInput, FormError } from '.';
 
 function FormField({ name, ...otherProps }) {
-    console.log({ name })
     const { setFieldTouched, handleChange, errors, touched } = useFormikContext()
     
     return (

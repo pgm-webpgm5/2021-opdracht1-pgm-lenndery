@@ -17,7 +17,7 @@ function CreateMailScreen() {
             <Wrapper>
                 <H2>Login</H2>
                 <Form
-                    onSubmit={() => setLogin(true)}
+                    onSubmit={( data ) => setLogin(data)}
                     validationSchema={validationSchema}
                 >
                     <FormField 

@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { WelcomeScreen, InboxScreen, MessageDetailScreen, LoginScreen, ComposeScreen } from './app/screens';
+import { WelcomeScreen, InboxScreen, MessageDetailScreen, LoginScreen, ComposeScreen, AccountScreen } from './app/screens';
 import { LoggedInCheck, Screen, TabBar } from './app/components';
 import { AuthContext } from './app/contexts/AuthContext';
 
@@ -49,7 +49,7 @@ const TabNavigator = () => (
         />
         <Tab.Screen 
             name="Account" 
-            component={WelcomeScreen}
+            component={AccountScreen}
             options={{
                 tabBarIcon: ({ size, color }) => <MaterialCommunityIcons name="account-outline" size={ size } color={ color } />
             }}

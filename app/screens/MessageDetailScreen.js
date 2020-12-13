@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, StyleSheet, Image, View } from 'react-native';
+import { Text, StyleSheet, Image, View, Button } from 'react-native';
 
 import { AppText, H3, H5, Label, Screen, Wrapper } from '../components';
 import mailData from '../data/mailData';
 import { messageRecievedDate, rem } from '../utils';
 
-function MessageDetailScreen({ route }) {
-    const { meta: { sender, date }, message: { title, body }} = mailData.find(m => m.meta.id === route.params.id )
+function MessageDetailScreen({ navigation, route }) {
+    const { meta: { sender, reciever, date, copy: [cc] }, message: { title, body }} = mailData.find(m => m.meta.id === route.params.id )
     const recievedDate = messageRecievedDate()
     
     return (
@@ -23,6 +23,12 @@ function MessageDetailScreen({ route }) {
                     </View>
                     <AppText style={ styles.messageSenderEmail }>{ sender.email }</AppText>
                     <AppText style={ styles.messageBody }>{ body }</AppText>
+                    <Button title='answer' onPress={() => navigation.navigate('CreateMail', {
+                        subject: `RE: ${title}`,
+                        reciever: sender.email,
+                        sender: reciever.email,
+                        cc: cc
+                    })}/>
                 </View>
             </View>
         </Wrapper>
